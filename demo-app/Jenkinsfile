@@ -1,10 +1,11 @@
 pipeline {
-    agent any
+    agent {
+        docker { image 'maven:3.9.3-jdk-17' } // Maven + JDK 17 déjà inclus
+    }
 
     stages {
         stage('Checkout') {
             steps {
-                // Pour un dépôt public, pas besoin de credentials
                 git branch: 'dev',
                     url: 'https://github.com/AmalChegdali/Projet-DevOps-AmalChegdali.git'
             }
@@ -27,26 +28,14 @@ pipeline {
                 archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
             }
         }
-
-        stage('Deploy') {
-            steps {
-                echo 'Déploiement optionnel : copier le JAR ou dockeriser l’application'
-                // Exemples :
-                // sh 'docker build -t demo-app:latest .'
-                // sh 'docker run -d -p 8080:8080 demo-app:latest'
-            }
-        }
     }
 
     post {
         success {
             echo "Pipeline terminé avec succès !"
-            // Slack notification si configuré
-            // slackSend(channel: '#devops', message: "Pipeline réussi pour Projet-DevOps-AmalChegdali")
         }
         failure {
             echo "Pipeline échoué !"
-            // slackSend(channel: '#devops', message: "Pipeline échoué pour Projet-DevOps-AmalChegdali")
         }
     }
 }
