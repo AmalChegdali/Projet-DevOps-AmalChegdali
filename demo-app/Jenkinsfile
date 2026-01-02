@@ -6,7 +6,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'dev',
+                git branch: 'main',
                     url: 'https://github.com/AmalChegdali/Projet-DevOps-AmalChegdali.git'
             }
         }
