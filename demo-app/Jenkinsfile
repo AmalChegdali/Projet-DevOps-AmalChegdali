@@ -1,6 +1,6 @@
 pipeline {
     agent {
-        docker { image 'maven:3.9.4-jdk-17' } // Image Maven + JDK 17 existante
+        docker { image 'maven:3.9-eclipse-temurin-17' } // Image Maven 3.9 + JDK 17 (Eclipse Temurin)
     }
 
     stages {
