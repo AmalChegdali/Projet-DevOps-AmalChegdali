@@ -1,6 +1,6 @@
 pipeline {
     agent {
-        docker { image 'maven:3.9.3-jdk-17' } // Maven + JDK 17 déjà inclus
+        docker { image 'maven:3.9.4-jdk-17' } // Image Maven + JDK 17 existante
     }
 
     stages {
@@ -26,6 +26,12 @@ pipeline {
         stage('Archive') {
             steps {
                 archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                echo 'Déploiement optionnel'
             }
         }
     }
