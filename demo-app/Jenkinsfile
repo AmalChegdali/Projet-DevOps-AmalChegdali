@@ -13,19 +13,25 @@ pipeline {
 
         stage('Build') {
             steps {
-                sh 'mvn clean package -B'
+                dir('demo-app') {
+                    sh 'mvn clean package -B'
+                }
             }
         }
 
         stage('Test') {
             steps {
-                sh 'mvn test -B'
+                dir('demo-app') {
+                    sh 'mvn test -B'
+                }
             }
         }
 
         stage('Archive') {
             steps {
-                archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
+                dir('demo-app') {
+                    archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
+                }
             }
         }
 
